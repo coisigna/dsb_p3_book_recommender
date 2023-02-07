@@ -35,13 +35,29 @@ def data_cleanse(csv):
 
     df_analysis = df_analysis[df_analysis["genres"] != "[]"].reset_index(drop = True)
 
+    # Join title and author in the same column
+
+    l_new_title = []
+
+    for title, author in zip(df_analysis["title"],df_analysis["author"]):
+        
+        l_new_title.append(' - '.join((title,author)))
+        
+    df_analysis["title"] = l_new_title
+
+    df_analysis.drop("author", axis = 1, inplace=True)
+
+    df_analysis.drop_duplicates(keep = False, inplace=True)
+
+    df_analysis.reset_index(drop = True, inplace = True)
+
     # Filter and sort analysis dataframe
 
     df_analysis = df_analysis[(df_analysis["numRatings"]> 100)&(df_analysis["rating"]>0)].sort_values("numRatings", ascending=False)
     
-    df_analysis.reset_index(drop=True)
+    df_analysis.reset_index(drop = False, inplace = True)
 
-    df_analysis.rename(columns = {"index" : "book_index"})
+    df_analysis.rename(columns = {"index" : "book_index"}, inplace = True)
 
     return df_analysis
 
@@ -100,6 +116,7 @@ def genres_to_cols(df):
     df_resulted = pd.DataFrame(data = l_datos, columns = l_sorted_categories)
 
     df_resulted.insert(0, 'title', df["title"])  
+    df_resulted.insert(0, 'book_index', df["book_index"])  
 
     return df_resulted 
 
@@ -135,9 +152,13 @@ def pages_to_cols(df, df_with_genres):
     df_pages["medium"] = [1 if i == "medium" else 0 for i in l_pages]
     df_pages["large"] = [1 if i == "large" else 0 for i in l_pages]
 
-    df_resulted = pd.merge(left=df_with_genres, right=df_pages, how="inner", left_index=True, right_index=True)
-    df_resulted = df_resulted.drop("title_y", axis = 1)
-    df_resulted = df_resulted.rename(columns={"title_x":"title"})
+    df_pages.insert(0, 'book_index', df["book_index"])  
+
+    df_resulted = pd.merge(left=df_with_genres, right=df_pages, how="inner", on="book_index")
+
+    df_resulted.drop(["book_index","title_y"],axis=1, inplace=True)
+
+    df_resulted.rename(columns={"title_x":"title"}, inplace=True)
 
     return df_resulted
 
@@ -154,31 +175,31 @@ def create_weighted_genre_matrix(df_ui, df_main):
 
     return df_resulted, df_weighted_genre_matrix
 
-def create_weighted_books_matrix(df):
-    
-    st.write(df.sum())
-    
-    s_user_weights = df.sum()
+def create_weighted_books_matrix(df_weighted_genre_matrix, df_ui):
+        
+    s_user_weights = df_weighted_genre_matrix.sum()
 
     s_user_weights = s_user_weights/s_user_weights.sum()
 
-    df_recommendation = df[~(df["rating"] > 0)]
+    df_recommendation = df_ui[~(df_ui["rating"] > 0)]
 
     weighted_books_matrix = list()
 
     for j in df_recommendation.iloc[:, 2:].values:
         weighted_books_matrix.append(s_user_weights.values*j)
         
-    df_weighted_books_matrix = pd.DataFrame(data = weighted_books_matrix, columns = df.iloc[:,2:].columns)
+    df_weighted_books_matrix = pd.DataFrame(data = weighted_books_matrix, columns = df_ui.iloc[:,2:].columns)
 
     return df_weighted_books_matrix
 
 def create_recommendation_dataframe(df_start,df_weighted_books_matrix):
 
-    df_recommendation = pd.concat([df_start[["title","author", "description", "awards", "isbn", "coverImg"]], df_weighted_books_matrix.sum(axis = 1)], axis = 1).sort_values(0, ascending = False)
+    df_recommendation = pd.concat([df_weighted_books_matrix.sum(axis = 1), df_start[["title", "description", "awards", "isbn", "coverImg", "numRatings", "rating"]]], axis = 1)
     df_recommendation.rename(columns={0:"coincidence_rating"}, inplace=True)
 
-    return df_recommendation
+    df_recommendation = df_recommendation.sort_values(["coincidence_rating", "numRatings"], ascending = False)
+
+    return df_recommendation.head(5)
 
 
 
