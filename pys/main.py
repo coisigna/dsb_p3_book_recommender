@@ -6,7 +6,7 @@ import os
 from my_funcs import *
 
 
-st.set_page_config(page_title="Book recommender", page_icon="📖", layout = 'wide')
+st.set_page_config(page_title="Book recommender", page_icon="📖")
 
 abs_path = os.path.dirname(os.path.abspath(__file__))
 csv = os.path.join(abs_path, "..", "resources", "books_1.Best_Books_Ever.csv")
