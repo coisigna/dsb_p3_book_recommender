@@ -40,6 +40,7 @@ with tab_vote:
     if bu_vote:
 
         st.session_state['df_user_input'] = st.session_state['df_user_input'].append({"title": sb_book, "rating":sl_punctuation}, ignore_index = True)
+        st.session_state['df_user_input'].drop_duplicates(inplace=True)
 
     #st.dataframe(data=st.session_state['df_user_input']), width = 1500, height = 300)
     st.table(data=st.session_state['df_user_input'])
