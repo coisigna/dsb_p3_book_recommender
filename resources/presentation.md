@@ -15,8 +15,8 @@ class: invert
 # Introduction
 
 - ###### Resulta imposible elegir entre la inalcanzable cantidad de contenido disponible
-- ###### El sector de los libros se e especialmente afectado por este hecho
-- ###### Los recomendadores se hayan vuelto una herramienta indispensable para consumir contenido
+- ###### El sector de los libros se ve especialmente afectado por este hecho
+- ###### Los recomendadores se han vuelto una herramienta indispensable para consumir contenido
 
 ---
 
