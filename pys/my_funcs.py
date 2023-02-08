@@ -4,6 +4,14 @@ import streamlit as st
 
 def data_cleanse(csv):
 
+    '''
+    It transforms csv file to a dataframe and cleans it filtering what it s not needed and preparing what it is.
+
+    Requirements:
+
+    csv =
+    '''
+
     # Dataframes creation
 
     df, df_analysis, df_discarded = pd.read_csv(csv), pd.read_csv(csv), pd.read_csv(csv)
@@ -62,6 +70,15 @@ def data_cleanse(csv):
     return df_analysis
 
 def get_dict(row):
+
+    '''
+    It evaluates the object that is inside of a str and returns it.
+
+    Requirements:
+
+    row = (row of a column that needs to be evaluated)
+    '''
+
     try:
         l_cleaned = eval(row)
     except:
@@ -69,6 +86,14 @@ def get_dict(row):
     return l_cleaned
 
 def genres_to_cols(df):
+
+    '''
+    It transforms the column genres into 50 different columns for the 50 most popular genres of the data. Every row of every column will be filled either with a 1 or 0 as the book contains than genre or not.
+
+    Requirements:
+
+    df = (dataframe with the column genres)
+    '''
 
     l_cleaned_categories = list()
     for i in df["genres"]:
@@ -122,6 +147,18 @@ def genres_to_cols(df):
 
 def pages_to_cols(df, df_with_genres):
 
+    '''
+    It transforms the column pages into 3 different columns for the 3 categories it has been decided to divide it (short for pages < 200, medium for 200 <= pages < 50 and large for pages >500).
+    Every row will be filled either with a 1 or 0 as the book fits in one of the 3 categories.
+    Once it is done, the function merges it with the dataframe of the genres in order to create the matrix for the recomendation.
+
+    Requirements:
+
+    df = (dataframe with the column pages)
+    df_with_genres = (genres dataframe previously treated)
+
+    '''
+
     df["pages"]=df["pages"].apply(lambda x: x.split()[0] if pd.notnull(x) else x)
     df["pages"]=df["pages"].apply(lambda x: int(x) if pd.notnull(x) else x)
 
@@ -164,6 +201,18 @@ def pages_to_cols(df, df_with_genres):
 
 def create_weighted_genre_matrix(df_ui, df_main):
 
+    '''
+    It creates a weighted genre matrix from two input dataframes, the one created from the input of the user and the one returned from pages_to_cols(df, df_with_genres).
+    It merges the two dataframes and stores the result in df_resulted
+    Then it multiplies the "rating" by the corresponding genre values and stores the result in a list l_weighted_genre_matrix.
+    Finally, it converts l_weighted_genre_matrix into a dataframe df_weighted_genre_matrix and returns both df_resulted and df_weighted_genre_matrix.
+
+    Requirements:
+
+    df_ui = (dataframe created from the inputs of the user)
+    df_main = (dataframe returned from pages_to_cols(df, df_with_genres))
+    '''
+
     df_resulted = pd.merge(left = df_ui, right = df_main, how = "outer", on = "title")
         
     l_weighted_genre_matrix = list()
@@ -176,6 +225,16 @@ def create_weighted_genre_matrix(df_ui, df_main):
     return df_resulted, df_weighted_genre_matrix
 
 def create_weighted_books_matrix(df_weighted_genre_matrix, df_ui):
+
+    '''
+    It calculates the sum of the values in df_weighted_genre_matrix along axis 0 (rows) and normalizes the sum by dividing it by its sum. This gives the user weights.
+    Then it multiplies the user weights  by the corresponding genre values and returns the result transformed into a dataframe.
+
+    Requirements:
+
+    df_weighted_genre_matrix = (dataframe returned from create_weighted_genre_matrix(df_ui, df_main))
+    df_ui = (dataframe created from the inputs of the user)
+    '''
         
     s_user_weights = df_weighted_genre_matrix.sum()
 
@@ -193,6 +252,17 @@ def create_weighted_books_matrix(df_weighted_genre_matrix, df_ui):
     return df_weighted_books_matrix
 
 def create_recommendation_dataframe(df_start,df_weighted_books_matrix):
+
+    '''
+    It creates the dataframe with recomendation.
+
+    Requirements:
+
+    df_start = (dataframe returned from data_cleanse(csv))
+
+    df_weighted_books_matrix = (dataframe returned from create_weighted_books_matrix(df_weighted_genre_matrix, df_ui))
+
+    '''
 
     df_recommendation = pd.concat([df_weighted_books_matrix.sum(axis = 1), df_start[["title", "description", "awards", "isbn", "coverImg", "numRatings", "rating"]]], axis = 1)
     df_recommendation.rename(columns={0:"coincidence_rating"}, inplace=True)
