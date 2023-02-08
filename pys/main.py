@@ -31,7 +31,7 @@ tab_vote, tab_recomendation = st.tabs(["Vote books","Recomendation"])
 
 with tab_vote:
 
-    sb_book = st.selectbox('Select the book', options = st.session_state['df_main']["title"].values)
+    sb_book = st.selectbox('Select the book', options = st.session_state['df_main']["title"].values, help="Write in the box to use it as an easy finder")
 
     sl_punctuation = st.slider("Select punctuation", 0, 10)
 
