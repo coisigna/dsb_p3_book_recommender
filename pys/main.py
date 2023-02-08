@@ -3,10 +3,12 @@ import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import os
-from my_funcs import *
+from funcs import *
 
 
 st.set_page_config(page_title="Book recommender", page_icon="📖")
+
+clicked = False
 
 abs_path = os.path.dirname(os.path.abspath(__file__))
 csv = os.path.join(abs_path, "..", "resources", "books_1.Best_Books_Ever.csv")
@@ -27,7 +29,7 @@ if 'df_user_input' not in st.session_state:
     st.session_state['df_user_input'] = pd.DataFrame(columns=["title", "rating"])
 
 
-tab_vote, tab_recomendation = st.tabs(["Vote books","Recomendation"])
+tab_vote, tab_recommendation = st.tabs(["Vote books","recommendation"])
 
 with tab_vote:
 
@@ -42,14 +44,18 @@ with tab_vote:
         st.session_state['df_user_input'] = st.session_state['df_user_input'].append({"title": sb_book, "rating":sl_punctuation}, ignore_index = True)
         st.session_state['df_user_input'].drop_duplicates(inplace=True)
 
-    #st.dataframe(data=st.session_state['df_user_input']), width = 1500, height = 300)
     st.table(data=st.session_state['df_user_input'])
 
     bu_gen_recom = st.button("Generate my recommendation!")
 
+    if clicked == True:
+
+        st.success("Succes!! Your recomendatión is ready, go to the next tab to check it!")
+
+
 if bu_gen_recom:
 
-    st.success("Succes!! Your recomendatión is ready, go to the next tab to check it!")
+    clicked = True
     st.balloons()
 
     df_ui, df_weighted_genre_matrix = create_weighted_genre_matrix(df_ui = st.session_state['df_user_input'], df_main = st.session_state['df_main'])
@@ -58,7 +64,7 @@ if bu_gen_recom:
 
     df_recommendation = create_recommendation_dataframe(df_start=st.session_state['df_cleansed'], df_weighted_books_matrix = df_weighted_books_matrix)
 
-    with tab_recomendation:
+    with tab_recommendation:
 
         img_book_1, stuff_book_1 = st.columns(2)
 

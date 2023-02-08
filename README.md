@@ -6,14 +6,13 @@ In this Readme we're about to explain all the technical information related with
 
 The dataset used for this project has been dwonloaded from [Kaggle](https://www.kaggle.com/datasets/thedevastator/comprehensive-overview-of-52478-goodreads-best-b), well-known wed in the data science world where you can find a huge variety of datasets.
 
-# EDA and firs developement (Book recomender.ipynb)
+# Usage
+# EDA and first developement (Book recomender.ipynb)
 
 The development of the entire project, depended on the results obtained in the EDA (Exploratory Data Analysis) stage. [Here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/ipynbs/Book%20recomender.ipynb) it can be found the reasons of choosing some features and discarding others and the ways that problems have been solved during the proces, check the full study if you are interested.
 
 
-# Main (main.py)
-
-Check it [here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/main.py)
+# Main ([main.py](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/main.py))
 
 ### st.session_state
 
@@ -28,7 +27,7 @@ st.session_state['df_cleansed'] = data_cleanse(csv)
 It is used to divide the interfaz in different tabs, two in this project.
 
 ```python
-tab_vote, tab_recomendation = st.tabs(["Vote books","Recomendation"])
+tab_vote, tab_recommendation = st.tabs(["Vote books","recommendation"])
 ```
 
 ### st.selectbox
@@ -49,7 +48,7 @@ sl_punctuation = st.slider("Select punctuation", 0, 10)
 
 ### st.button
 
-It creates a button widget that the user can click to perform a specific action. In this case to vote and to generate the recomendation.
+It creates a button widget that the user can click to perform a specific action. In this case to vote and to generate the recommendation.
 
 ```python
 bu_vote = st.button("Vote",help="")
@@ -68,7 +67,7 @@ st.table(data=st.session_state['df_user_input'])
 It creates a success message, which is used to provide feedback to the user that an action was successful. Success messages are typically displayed in green.
 
 ```python
-st.success("Succes!! Your recomendatión is ready, go to the next tab to check it!")
+st.success("Success!! Your recomendatión is ready, go to the next tab to check it!")
 ```
 
 ### st.markdown
@@ -93,11 +92,11 @@ st.write(df_recommendation["description"].iat[1])
 Check it [here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/my_funcs.py)
 
 ### data_cleanse(csv)
-```
+
 It transforms csv file to a dataframe and cleans it filttering what it s not needed and preparing what it is.
 
-Requirements:
-csv =
+```python
+df_analysis = data_cleanse(csv)
 ```
 ### get_dict(row)
 ```
@@ -119,7 +118,7 @@ df = (dataframe with the column genres)
 ```
 It transforms the column pages into 3 different columns for the 3 categories it has been decided to divide it (short for pages < 200, medium for 200 <= pages < 50 and large for pages >500).
 Every row will be filled either with a 1 or 0 as the book fits in one of the 3 categories.
-Once it is done, the function merges it with the dataframe of the genres in order to create the matrix for the recomendation.
+Once it is done, the function merges it with the dataframe of the genres in order to create the matrix for the recommendation.
 
 Requirements:
 
@@ -150,7 +149,7 @@ df_ui = (dataframe created from the inputs of the user)
 ```
 ### create_recommendation_dataframe(df_start,df_weighted_books_matrix)
 ```
-It creates the dataframe with recomendation.
+It creates the dataframe with recommendation.
 
 Requirements:
 
