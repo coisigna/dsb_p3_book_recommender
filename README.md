@@ -8,17 +8,19 @@ The dataset used for this project has been dwonloaded from [Kaggle](https://www.
 
 # EDA and firs developement
 
-The development of the entire project, depended on the results obtained in the EDA (Exploratory Data Analysis) stage.[Here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/ipynbs/Book%20recomender.ipynb) it can be found the reasons of choosing some features and discarding others and the ways that problems have been solved during the proces, check the full study if you are interested.
+The development of the entire project, depended on the results obtained in the EDA (Exploratory Data Analysis) stage. [Here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/ipynbs/Book%20recomender.ipynb) it can be found the reasons of choosing some features and discarding others and the ways that problems have been solved during the proces, check the full study if you are interested.
 
-# [my_funcs.py](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/my_funcs.py)
+# my_funcs.py
+
+Check it [here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/my_funcs.py)
 
 ### data_cleanse(csv)
-
+```python
 It transforms csv file to a dataframe and cleans it filttering what it s not needed and preparing what it is.
 
 Requirements:
 csv =
-
+```
 ### get_dict(row)
 
 It evaluates the object that is inside of a str and returns it.
