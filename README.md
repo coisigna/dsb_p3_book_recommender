@@ -14,14 +14,14 @@ The development of the entire project, depended on the results obtained in the E
 
 Check it [here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/my_funcs.py)
 
-### data_cleanse(csv)
+- data_cleanse(csv)
 ```
 It transforms csv file to a dataframe and cleans it filttering what it s not needed and preparing what it is.
 
 Requirements:
 csv =
 ```
-### get_dict(row)
+- get_dict(row)
 ```
 It evaluates the object that is inside of a str and returns it.
 
@@ -29,7 +29,7 @@ Requirements:
 
 row = (row of a column that needs to be evaluated)
 ```
-### genres_to_cols(df)
+### - genres_to_cols(df)
 ```
 It transforms the column genres into 50 different columns for the 50 most popular genres of the data. Every row of every column will be filled either with a 1 or 0 as the films contains than genre or not.
 
