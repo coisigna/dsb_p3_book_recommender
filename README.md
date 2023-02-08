@@ -6,11 +6,11 @@ In this Readme we're about to explain all the technical information related with
 
 The dataset used for this project has been dwonloaded from [Kaggle](https://www.kaggle.com/datasets/thedevastator/comprehensive-overview-of-52478-goodreads-best-b), well-known wed in the data science world where you can find a huge variety of datasets.
 
-# EDA and firs developement
+# EDA and firs developement (Book recomender.ipynb)
 
 The development of the entire project, depended on the results obtained in the EDA (Exploratory Data Analysis) stage. [Here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/ipynbs/Book%20recomender.ipynb) it can be found the reasons of choosing some features and discarding others and the ways that problems have been solved during the proces, check the full study if you are interested.
 
-# my_funcs.py
+# Functions (my_funcs.py)
 
 Check it [here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/my_funcs.py)
 
