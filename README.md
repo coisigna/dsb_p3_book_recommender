@@ -15,7 +15,7 @@ The development of the entire project, depended on the results obtained in the E
 Check it [here](https://github.com/coisigna/dsb_p3_book_recommender/blob/main/pys/my_funcs.py)
 
 ### data_cleanse(csv)
-```python
+```
 It transforms csv file to a dataframe and cleans it filttering what it s not needed and preparing what it is.
 
 Requirements:
