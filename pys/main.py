@@ -41,11 +41,15 @@ with tab_vote:
 
         st.session_state['df_user_input'] = st.session_state['df_user_input'].append({"title": sb_book, "rating":sl_punctuation}, ignore_index = True)
 
-    st.dataframe(data=st.session_state['df_user_input'], width = 1500, height = 300)
+    #st.dataframe(data=st.session_state['df_user_input']), width = 1500, height = 300)
+    st.table(data=st.session_state['df_user_input'])
 
     bu_gen_recom = st.button("Generate my recommendation!")
 
 if bu_gen_recom:
+
+    st.success("Succes!! Your recomendatión is ready, go to the next tab to check it!")
+    st.balloons()
 
     df_ui, df_weighted_genre_matrix = create_weighted_genre_matrix(df_ui = st.session_state['df_user_input'], df_main = st.session_state['df_main'])
 
