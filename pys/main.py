@@ -29,13 +29,18 @@ if 'df_user_input' not in st.session_state:
     st.session_state['df_user_input'] = pd.DataFrame(columns=["title", "rating"])
 
 
+st.title("Book Recommender")
+
+st.subheader("**Vote some books to get the best recommendation**")
+
+
 tab_vote, tab_recommendation = st.tabs(["Vote books","Recommendation"])
 
 with tab_vote:
 
     sb_book = st.selectbox('Select the book', options = st.session_state['df_main']["title"].values, help="Write in the box to use it as an easy finder")
 
-    sl_punctuation = st.slider("Select punctuation", 0, 10)
+    sl_punctuation = st.slider("Select rating", 0, 10)
 
     bu_vote = st.button("Vote",help="")
 
