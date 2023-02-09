@@ -14,7 +14,7 @@ class: invert
 ---
 # Introduction
 
-- ###### Resulta imposible elegir entre la inalcanzable cantidad de contenido disponible
+- ###### Resulta muy dificil elegir entre la gran cantidad de contenido disponible
 - ###### El sector de los libros se ve especialmente afectado por este hecho
 - ###### Los recomendadores se han vuelto una herramienta indispensable para consumir contenido
 
@@ -25,10 +25,13 @@ class: invert
 ---
 # Tools or technologies used
 
+![bg right height:1in](github_logo.jpeg)
 - Github
 
 
-![bg rigth height:1in](github_logo.jpeg)
+
+
+
 ---
 
 

@@ -29,7 +29,7 @@ if 'df_user_input' not in st.session_state:
     st.session_state['df_user_input'] = pd.DataFrame(columns=["title", "rating"])
 
 
-tab_vote, tab_recommendation = st.tabs(["Vote books","recommendation"])
+tab_vote, tab_recommendation = st.tabs(["Vote books","Recommendation"])
 
 with tab_vote:
 
@@ -48,14 +48,13 @@ with tab_vote:
 
     bu_gen_recom = st.button("Generate my recommendation!")
 
-    if clicked == True:
-
-        st.success("Succes!! Your recomendatión is ready, go to the next tab to check it!")
-
 
 if bu_gen_recom:
 
-    clicked = True
+    with tab_vote:
+        st.success("Succes!! Your recomendatión is ready, go to the next tab to check it!")
+
+   
     st.balloons()
 
     df_ui, df_weighted_genre_matrix = create_weighted_genre_matrix(df_ui = st.session_state['df_user_input'], df_main = st.session_state['df_main'])
