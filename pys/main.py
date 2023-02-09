@@ -52,7 +52,7 @@ with tab_vote:
 if bu_gen_recom:
 
     with tab_vote:
-        st.success("Success!! Your recomendatión is ready, go to the next tab to check it!")
+        st.success("Success!! Your recommendatión is ready, go to the next tab to check it!")
 
    
     st.balloons()
