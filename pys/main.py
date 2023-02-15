@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import os
+import random
 from funcs import *
 
 
@@ -48,6 +49,29 @@ with tab_vote:
 
         st.session_state['df_user_input'] = st.session_state['df_user_input'].append({"title": sb_book, "rating":sl_punctuation}, ignore_index = True)
         st.session_state['df_user_input'].drop_duplicates(inplace=True)
+
+        benefits = ["Regular reading has been linked to improved memory, concentration, and critical thinking skills.",
+                    "Reading is a great way to learn about new topics and gain a deeper understanding of the world around you.",    
+                    "Reading can help improve writing skills by exposing individuals to different styles and structures of written communication.",    
+                    "Reading fiction and other forms of storytelling can help individuals develop empathy, emotional intelligence, and a better understanding of human nature.",    
+                    "Reading can be a great way to relax and unwind, helping to reduce stress and improve overall mental well-being.",    
+                    "Reading requires focus and concentration, which can help individuals improve these skills in other areas of their lives.",    
+                    "Reading can inspire and stimulate the imagination, leading to increased creativity and innovation.",    
+                    "Reading books from different cultures and backgrounds can broaden perspectives and deepen cultural awareness.",    
+                    "Reading is a source of pleasure and can add to overall happiness and enjoyment of life.",    
+                    "Reading before bed can help individuals relax and fall asleep more easily.",    
+                    "Reading can help improve memory recall and retention.",    
+                    "Increased vocabulary and comprehension: Regular reading can help individuals improve their vocabulary and comprehension skills.",    
+                    "Reading can help to keep the mind sharp and active, leading to improved mental agility.",    
+                    "Reading stimulates the imagination and can inspire creativity in individuals.",    
+                    "Reading and learning about different perspectives can help individuals improve their problem-solving skills.",    
+                    "Regular reading can help individuals improve their focus and attention span.",    
+                    "Reading exposes individuals to new ideas and information, which can help them make more informed decisions.",    
+                    "Reading books on communication and social skills can help individuals improve their interpersonal skills.",    
+                    "Regular reading has been linked to a number of health benefits, including reduced stress levels and improved mental well-being."]
+
+        i = random.randint(0,len(benefits)-1)
+        st.success(benefits[i])
 
     st.table(data=st.session_state['df_user_input'])
 
